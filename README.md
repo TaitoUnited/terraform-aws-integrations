@@ -1,8 +1,6 @@
 # AWS integrations
 
-Provides some custom jobs and notifications for your infrastructure:
-
-- TODO: Database long-term backups
+Provides SaaS-components related to integrations (events, data streaming, ETL, ...). TODO: implement.
 
 Example usage:
 
@@ -11,16 +9,19 @@ provider "aws" {
   region = "us-east-1"
 }
 
-module "events" {
+module "integrations" {
   source           = "TaitoUnited/integrations/aws"
   version          = "1.0.0"
+
+  kafkas           = yamldecode(file("${path.root}/../infra.yaml"))["kafkas"]
 }
 ```
 
 Example YAML:
 
 ```
-TODO
+kafkas:
+  - name: my-kafka
 ```
 
 YAML attributes:
@@ -32,6 +33,7 @@ Combine with the following modules to get a complete infrastructure defined by Y
 - [Admin](https://registry.terraform.io/modules/TaitoUnited/admin/aws)
 - [DNS](https://registry.terraform.io/modules/TaitoUnited/dns/aws)
 - [Network](https://registry.terraform.io/modules/TaitoUnited/network/aws)
+- [Compute](https://registry.terraform.io/modules/TaitoUnited/compute/aws)
 - [Kubernetes](https://registry.terraform.io/modules/TaitoUnited/kubernetes/aws)
 - [Databases](https://registry.terraform.io/modules/TaitoUnited/databases/aws)
 - [Storage](https://registry.terraform.io/modules/TaitoUnited/storage/aws)
